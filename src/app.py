@@ -32,4 +32,8 @@ demo = gr.Interface(
     "text")
 
 if __name__ == "__main__":
+<<<<<<< HEAD
     demo.launch(server_name="0.0.0.0", server_port=int(os.environ['PORT']))
+=======
+    demo.launch(server_name="0.0.0.0:7497")
+>>>>>>> 1ef6e6bebe1e1e8230e7e07330d87b164933b64d
