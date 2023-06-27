@@ -1,0 +1,5 @@
+feature_engine==1.6.1
+scikit-learn==1.2.2
+pycaret==3.0.2
+kaggle
+gradio==3.35.2
