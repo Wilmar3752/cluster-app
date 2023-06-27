@@ -1,7 +1,7 @@
 import gradio as gr
 import pandas as pd
 import joblib
-
+import os
 data = pd.read_csv('data/raw/CC GENERAL.csv', index_col='CUST_ID')
 pipeline = joblib.load('./models/cluster_pipeline.joblib')
 
@@ -32,4 +32,4 @@ demo = gr.Interface(
     "text")
 
 if __name__ == "__main__":
-    demo.launch(server_name="0.0.0.0")
+    demo.launch(server_name="0.0.0.0", server_port=int(os.environ['PORT']))
