@@ -1,3 +1,4 @@
+---
 title: Cluster App
 emoji: 🌍
 colorFrom: green
@@ -7,3 +8,4 @@ sdk_version: 3.35.2
 app_file: src/app.py
 pinned: false
 license: mit
+---
