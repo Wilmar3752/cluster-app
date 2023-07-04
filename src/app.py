@@ -5,6 +5,7 @@ import os
 data = pd.read_csv('data/raw/CC GENERAL.csv', index_col='CUST_ID')
 pipeline = joblib.load('./models/cluster_pipeline.joblib')
 
+
 def sentence_builder(BALANCE, BALANCE_FREQUENCY, PURCHASES, ONEOFF_PURCHASES,
        INSTALLMENTS_PURCHASES, CASH_ADVANCE, PURCHASES_FREQUENCY,
        ONEOFF_PURCHASES_FREQUENCY, PURCHASES_INSTALLMENTS_FREQUENCY,
@@ -23,7 +24,6 @@ def sentence_builder(BALANCE, BALANCE_FREQUENCY, PURCHASES, ONEOFF_PURCHASES,
     df_transform = pipeline.transform(ls_df)
     cluster = df_transform['label'][0]
     return f'El individuo pertenece al cluster {cluster}'
-
 
 
 demo = gr.Interface(
