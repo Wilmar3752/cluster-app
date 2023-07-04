@@ -2,7 +2,10 @@ imputation_method: mean
 scaler_method: minmax
 n_components: 2
 n_clusters: 4
-PIPELINE_PATH: ./models/cluster_pipeline.joblib'
+capping_method: 'iqr'
+tail: 'both'
+fold: 1.5
+PIPELINE_PATH: ./models/cluster_pipeline.joblib
 PARAMS_NAME: params.yaml
 DATA_PATH: ./data/raw/CC GENERAL.csv
 INDEX_COL: CUST_ID

@@ -1,16 +1,7 @@
 import logging
 import sys
 from kaggle.api.kaggle_api_extended import KaggleApi
-
-
-    # Setup logging configuration
-logging.basicConfig(
-    format='%(asctime)s %(levelname)s:%(name)s: %(message)s',
-    level=logging.INFO,
-    datefmt='%H:%M:%S',
-    stream=sys.stderr
-)
-logger = logging.getLogger(__name__)
+from utils import logger
 
 def extract_data(username, dataset_name):
     logger.info('Connection to Kaggle API')

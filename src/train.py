@@ -1,25 +1,24 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 from feature_engine.imputation import MeanMedianImputer
+from feature_engine.outliers import Winsorizer
 from sklearn.decomposition import PCA
-from sklearn.cluster import KMeans
 from sklearn.pipeline import Pipeline
-from sklearn.model_selection import train_test_split
-from utils import ScalerDf, Kmeans_, logger, load_config
+from utils import ScalerDf, Kmeans_, logger, load_config, outliers_features, imputation_features
 import joblib
 
 
 def train(data, config):
     logger.info('Training pipeline')
     pipeline_steps = [
-        ('mean_inputer', MeanMedianImputer(imputation_method=config['imputation_method'], variables= ['MINIMUM_PAYMENTS', 'CREDIT_LIMIT'])),
+        ('mean_inputer', MeanMedianImputer(imputation_method=config['imputation_method'], variables=imputation_features)),
+        ('outlier_handling', Winsorizer(capping_method=config['capping_method'], variables=outliers_features, tail=config['tail'], fold=config['fold'])),
         ('standard', ScalerDf(method=config['scaler_method'])),
         ('PCA', PCA(n_components=config['n_components'])),
         ('Kmeans',Kmeans_(n_clusters=config['n_clusters']))
     ]
 
     cluster_pipeline = Pipeline(pipeline_steps)
-
     cluster_pipeline.fit(cc_data)
     logger.info('Export Cluster Pipeline')
     joblib.dump(cluster_pipeline, config['PIPELINE_PATH'])
