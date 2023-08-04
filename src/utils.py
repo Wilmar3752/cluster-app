@@ -15,6 +15,12 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+def load_config(config_name):
+    logger.info('Loading Config File')
+    with open(os.path.join(config_name)) as file:
+        config = yaml.safe_load(file)
+    return config
+
 class ScalerDf(BaseEstimator, TransformerMixin):
     """A custom transformer that applies scaling to a pandas DataFrame.
     
@@ -95,11 +101,6 @@ class Kmeans_(BaseEstimator, TransformerMixin):
         self.kmeans.fit(X)
         return self
 
-def load_config(CONFIG_PATH,config_name):
-    logger.info('Loading Config File')
-    with open(os.path.join(CONFIG_PATH, config_name)) as file:
-        config = yaml.safe_load(file)
-    return config
 
 
 outliers_features= ['BALANCE', 'BALANCE_FREQUENCY', 'PURCHASES', 'ONEOFF_PURCHASES', 'INSTALLMENTS_PURCHASES', 

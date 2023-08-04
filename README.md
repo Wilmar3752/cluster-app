@@ -12,8 +12,8 @@ license: mit
 
 # Clasificación de clientes de tarjeta de credito (end to end project)
 
-En este proyecto se utiliza un dataset donde se miden diferentes variables a los clientes, se construyen cluster basados los resultados de un ACP, así como una aplicación wen y una API.
-
+En este proyecto se utiliza un dataset donde se miden diferentes variables a los clientes, se construyen cluster basados los resultados de un ACP, así como una aplicación en y una API. [AQUI](https://wilmars-cluster-app.hf.space
+)
 ## Tabla de contenidos
 
 - [Requisitos](#requisitos)

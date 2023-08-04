@@ -1,3 +1,8 @@
+data_load:
+  PATH: data/raw
+  KAGGLE_USERNAME: arjunbhasin2013
+  KAGGLE_DATASET_NAME: ccdata
+  dataset_rename: raw_data.csv
 imputation_method: mean
 scaler_method: minmax
 n_components: 2
