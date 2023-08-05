@@ -5,3 +5,9 @@ stages:
       - src/stages/extract_data.py
     outs:
       - data/raw/raw_data.csv
+  train:
+    cmd: python src/stages/train.py
+    deps:
+      - src/stages/train.py
+      - data/raw/raw_data.csv
+      
