@@ -1,0 +1,49 @@
+schema: '2.0'
+stages:
+  loading_dotenv:
+    cmd: export $(cat .env | sed -e /^$/d -e /^#/d | xargs -0)
+  data_extraction:
+    cmd: python src/stages/extract_data.py --config params.yaml
+    deps:
+    - path: src/stages/extract_data.py
+      hash: md5
+      md5: d16f2486bb21a310207866ab995e3d35
+      size: 1178
+    params:
+      params.yaml:
+        data_load:
+          PATH: data/raw
+          KAGGLE_USERNAME: arjunbhasin2013
+          KAGGLE_DATASET_NAME: ccdata
+          dataset_rename: raw_data.csv
+    outs:
+    - path: data/raw/raw_data.csv
+      hash: md5
+      md5: c9b0bb7fc9e241b81da92c3528103664
+      size: 902879
+  train:
+    cmd: python src/stages/train.py --config params.yaml
+    deps:
+    - path: data/raw/raw_data.csv
+      hash: md5
+      md5: c9b0bb7fc9e241b81da92c3528103664
+      size: 902879
+    - path: src/stages/train.py
+      hash: md5
+      md5: 970a985028ed7b23626a66d655bea40f
+      size: 1577
+    params:
+      params.yaml:
+        train:
+          imputation_method: mean
+          scaler_method: minmax
+          n_components: 2
+          n_clusters: 4
+          capping_method: iqr
+          tail: both
+          fold: 1.5
+    outs:
+    - path: models/cluster_pipeline.joblib
+      hash: md5
+      md5: 3e764206191775a9b8dbc57c4514a131
+      size: 41808

@@ -5,9 +5,14 @@ stages:
       - src/stages/extract_data.py
     outs:
       - data/raw/raw_data.csv
+    params:
+      - data_load
   train:
-    cmd: python src/stages/train.py
+    cmd: python src/stages/train.py --config params.yaml
     deps:
       - src/stages/train.py
       - data/raw/raw_data.csv
-      
+    outs:
+      - models/cluster_pipeline.joblib
+    params:
+      - train

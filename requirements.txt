@@ -3,3 +3,4 @@ scikit-learn==1.2.2
 kaggle
 gradio==3.35.2
 seaborn==0.12.2
+dvc==3.11.1

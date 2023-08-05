@@ -4,6 +4,9 @@ from kaggle.api.kaggle_api_extended import KaggleApi
 import argparse
 from src.utils import load_config
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 logging.basicConfig(
     format='%(asctime)s %(levelname)s:%(name)s: %(message)s',
