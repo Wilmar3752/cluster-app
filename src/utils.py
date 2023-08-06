@@ -15,6 +15,12 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+def load_config(config_name):
+    logger.info('Loading Config File')
+    with open(os.path.join(config_name)) as file:
+        config = yaml.safe_load(file)
+    return config
+
 class ScalerDf(BaseEstimator, TransformerMixin):
     """A custom transformer that applies scaling to a pandas DataFrame.
     
@@ -38,24 +44,27 @@ class ScalerDf(BaseEstimator, TransformerMixin):
     def __init__(self, method):
         self.method = method
 
-    def transform(self,X,y=None):
-        if self.method == 'minmax':
-            scaler = MinMaxScaler()
-        elif self.method == 'standard':
-            scaler = StandardScaler()
-        elif self.method == 'none': # Agregar condición para no hacer nada
-            return X
-        scaler.fit(X)
+    def transform(self, X):
         X = pd.DataFrame(
-                scaler.transform(X),
-                columns=X.columns,
-                index = X.index
-            )
+            self.scaler.transform(X),
+            columns=X.columns,
+            index=X.index
+        )
         return X
 
     def fit(self, X, y=None):
+        if self.method == 'minmax':
+            self.scaler = MinMaxScaler()
+        elif self.method == 'standard':
+            self.scaler = StandardScaler()
+        elif self.method == 'none':
+            return self
+        else:
+            raise ValueError("Invalid scaling method. Supported methods are 'minmax', 'standard', and 'none'.")
+
+        self.scaler.fit(X)
         return self
-    
+
 class Kmeans_(BaseEstimator, TransformerMixin):
     """A custom transformer that applies K-means clustering to a pandas DataFrame.
     
@@ -95,11 +104,6 @@ class Kmeans_(BaseEstimator, TransformerMixin):
         self.kmeans.fit(X)
         return self
 
-def load_config(CONFIG_PATH,config_name):
-    logger.info('Loading Config File')
-    with open(os.path.join(CONFIG_PATH, config_name)) as file:
-        config = yaml.safe_load(file)
-    return config
 
 
 outliers_features= ['BALANCE', 'BALANCE_FREQUENCY', 'PURCHASES', 'ONEOFF_PURCHASES', 'INSTALLMENTS_PURCHASES', 

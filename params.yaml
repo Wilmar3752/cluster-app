@@ -1,10 +1,16 @@
-imputation_method: mean
-scaler_method: minmax
-n_components: 2
-n_clusters: 4
-capping_method: 'iqr'
-tail: 'both'
-fold: 1.5
+data_load:
+  PATH: data/raw
+  KAGGLE_USERNAME: arjunbhasin2013
+  KAGGLE_DATASET_NAME: ccdata
+  dataset_rename: raw_data.csv
+train:
+  imputation_method: mean
+  scaler_method: minmax
+  n_components: 2
+  n_clusters: 4
+  capping_method: 'iqr'
+  tail: 'both'
+  fold: 1.5
 PIPELINE_PATH: ./models/cluster_pipeline.joblib
 PARAMS_NAME: params.yaml
 DATA_PATH: ./data/raw/CC GENERAL.csv
