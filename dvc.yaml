@@ -14,5 +14,17 @@ stages:
       - data/raw/raw_data.csv
     outs:
       - models/cluster_pipeline.joblib
+      - data/processed/X_transformed.csv
     params:
       - train
+  evaluate:
+    cmd: python src/stages/evaluate.py --config params.yaml
+    deps:
+      - src/stages/evaluate.py
+      - data/processed/X_transformed.csv
+    metrics:
+      - reports/metrics.json:
+          cache: false
+    plots:
+      - reports/clusters.png:
+          cache: false

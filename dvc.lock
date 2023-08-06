@@ -1,7 +1,5 @@
 schema: '2.0'
 stages:
-  loading_dotenv:
-    cmd: export $(cat .env | sed -e /^$/d -e /^#/d | xargs -0)
   data_extraction:
     cmd: python src/stages/extract_data.py --config params.yaml
     deps:
@@ -30,20 +28,45 @@ stages:
       size: 902879
     - path: src/stages/train.py
       hash: md5
-      md5: 970a985028ed7b23626a66d655bea40f
-      size: 1577
+      md5: 8b1d92e0907a200d561433dd97ff1001
+      size: 1714
     params:
       params.yaml:
         train:
           imputation_method: mean
-          scaler_method: minmax
+          scaler_method: standard
           n_components: 2
-          n_clusters: 4
+          n_clusters: 5
           capping_method: iqr
           tail: both
           fold: 1.5
+          transformed_data: data/processed/X_transformed.csv
     outs:
+    - path: data/processed/X_transformed.csv
+      hash: md5
+      md5: eba452f5f0c0584b841de98deb0860eb
+      size: 364407
     - path: models/cluster_pipeline.joblib
       hash: md5
-      md5: 3e764206191775a9b8dbc57c4514a131
-      size: 41808
+      md5: 90a93b3cd2ea7031d400d8f386bfaded
+      size: 41440
+  evaluate:
+    cmd: python src/stages/evaluate.py --config params.yaml
+    deps:
+    - path: data/processed/X_transformed.csv
+      hash: md5
+      md5: eba452f5f0c0584b841de98deb0860eb
+      size: 364407
+    - path: src/stages/evaluate.py
+      hash: md5
+      md5: 0ffd0d7e307b530e456d4599f438d5c5
+      size: 1660
+    outs:
+    - path: reports/clusters.png
+      hash: md5
+      md5: e948dff44aaf021be78593a242af5652
+      size: 427747
+    - path: reports/metrics.json
+      hash: md5
+      md5: 04ebf726291af6af4a1e0d2ccd9690ba
+      size: 40

@@ -27,6 +27,8 @@ def train(config_path):
     cluster_pipeline.fit(cc_data)
     logger.info('Export Cluster Pipeline')
     joblib.dump(cluster_pipeline, config['PIPELINE_PATH'])
+    transformed_data = cluster_pipeline.transform(cc_data)
+    transformed_data.to_csv(config['train']['transformed_data'], index=False)
 
 if __name__ == "__main__":
     args_parser = argparse.ArgumentParser()
