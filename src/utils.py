@@ -65,17 +65,6 @@ class ScalerDf(BaseEstimator, TransformerMixin):
         self.scaler.fit(X)
         return self
 
-    def fit_transform(self, X, y=None):
-        self.fit(X)
-        return self.transform(X)
-
-    def inverse_transform(self, X):
-        X = pd.DataFrame(
-            self.scaler.inverse_transform(X),
-            columns=X.columns,
-            index=X.index
-        )
-        return X
 class Kmeans_(BaseEstimator, TransformerMixin):
     """A custom transformer that applies K-means clustering to a pandas DataFrame.
     
