@@ -33,10 +33,10 @@ stages:
     params:
       params.yaml:
         train:
-          imputation_method: mean
+          imputation_method: median
           scaler_method: standard
           n_components: 2
-          n_clusters: 5
+          n_clusters: 3
           capping_method: iqr
           tail: both
           fold: 1.5
@@ -44,19 +44,19 @@ stages:
     outs:
     - path: data/processed/X_transformed.csv
       hash: md5
-      md5: eba452f5f0c0584b841de98deb0860eb
-      size: 364407
+      md5: 7b3828a09b15d7945ca7e574ea11f4e4
+      size: 364365
     - path: models/cluster_pipeline.joblib
       hash: md5
-      md5: 90a93b3cd2ea7031d400d8f386bfaded
-      size: 41440
+      md5: 623d777168b65291388966c3e266dc63
+      size: 41408
   evaluate:
     cmd: python src/stages/evaluate.py --config params.yaml
     deps:
     - path: data/processed/X_transformed.csv
       hash: md5
-      md5: eba452f5f0c0584b841de98deb0860eb
-      size: 364407
+      md5: 7b3828a09b15d7945ca7e574ea11f4e4
+      size: 364365
     - path: src/stages/evaluate.py
       hash: md5
       md5: 0ffd0d7e307b530e456d4599f438d5c5
@@ -64,9 +64,9 @@ stages:
     outs:
     - path: reports/clusters.png
       hash: md5
-      md5: e948dff44aaf021be78593a242af5652
-      size: 427747
+      md5: 91fcb9898233971667078d3ef85dba9e
+      size: 420980
     - path: reports/metrics.json
       hash: md5
-      md5: 04ebf726291af6af4a1e0d2ccd9690ba
-      size: 40
+      md5: 7ee78aec177d91ac8d176340e7465e98
+      size: 41

@@ -3,14 +3,14 @@ data_load:
   KAGGLE_USERNAME: arjunbhasin2013
   KAGGLE_DATASET_NAME: ccdata
   dataset_rename: raw_data.csv
-  
+
 train:
-  imputation_method: mean
+  imputation_method: median
   scaler_method: standard
   n_components: 2
-  n_clusters: 5
-  capping_method: 'iqr'
-  tail: 'both'
+  n_clusters: 3
+  capping_method: iqr
+  tail: both
   fold: 1.5
   transformed_data: data/processed/X_transformed.csv
 evaluate:
